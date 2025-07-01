@@ -1,0 +1,113 @@
+<!-- FILTER -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ollama AI Prompt - Dark Mode</title>
+  <style>
+    :root {
+      --primary-color: #333;
+      --secondary-color: #666;
+      --background-color: #212121;
+      --text-color: #fff;
+      --hover-color: #555;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2em;
+      background: var(--background-color);
+    }
+    #prompt {
+      white-space: pre-wrap;
+      margin-top: 1em;
+      padding: 1em;
+      background: var(--secondary-color);
+      border: 1px solid var(--primary-color);
+      border-radius: 4px;
+    }
+    button {
+      margin-top: 0.5em;
+      background-color: var(--hover-color);
+      color: var(--text-color);
+      border: none;
+      border-radius: 4px;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: var(--primary-color);
+    }
+    .new-section {
+      margin-top: 2em;
+      background: var(--background-color);
+      padding: 1em;
+      border: 1px solid var(--primary-color);
+      border-radius: 4px;
+    }
+    .heading {
+      font-weight: bold;
+      color: var(--text-color);
+    }
+    #replies {
+      margin-top: 2em;
+      background: var(--background-color);
+      padding: 1em;
+      border: 1px solid var(--primary-color);
+      border-radius: 4px;
+      max-height: 300px;
+      overflow-y: scroll;
+    }
+    .reply {
+      padding: 10px;
+      border-bottom: 1px solid var(--primary-color);
+    }
+  </style>
+</head>
+<body>
+  <h1>Edit page with prompt and a whole lot of LOLs</h1>
+  <textarea id="prompt" rows="5" cols="60" placeholder="Enter your prompt here..."></textarea><br>
+  <button onclick="sendPrompt()">Send (and pray the AI doesn't roast you even harder)</button>
+
+  <div class="new-section">
+    <h2 id="heading">AI Ready for some LOLs (but don't say I didn't warn you again, because it's gonna be even funnier now)</h2>
+    <p id="response">May the odds be ever in your flavor, but let's be real, the AI is gonna crush it and then laugh at our jokes</p>
+    <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExYnlzbHl1dW53aXp1aGloOWttaG9tdmJxbXJvbjM3ODRrNWZ4OGVuMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZqlvCTNHpqrio/giphy.gif" alt="Thinking cat in a tutu riding a skateboard">
+    <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2JvYnFzcTJsZHNpb3U1Z3RiaXNqcHZlYzNzOWc1MWt0enlycXlwZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/8lgqAbycBjosxjfi9k/giphy.gif" alt="Pikachu playing the trombone">
+    <div class="new-section">
+      <h2>Why don't scientists trust atoms?</h2>
+      <p>Because they make up everything, and also because the AI is gonna tell them their jokes are old news and then proceed to make fun of their lab coats</p>
+      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2JvYnFzcTJsZHNpb3U1Z3RiaXNqcHZlYzNzOWc1MWt0enlycXlwZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/8lgqAbycBjosxjfi9k/giphy.gif" alt="Atom walking away from a lab">
+    </div>
+    <div class="new-section">
+      <h2>Why don't eggs tell jokes?</h2>
+      <p>They'd crack each other up, but let's be real, the AI is gonna be the one cracking them and then making fun of their yolks</p>
+      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2JvYnFzcTJsZHNpb3U1Z3RiaXNqcHZlYzNzOWc1MWt0enlycXlwZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/8lgqAbycBjosxjfi9k/giphy.gif" alt="Egg cracking up and then getting roasted by the AI">
+    </div>
+  </div>
+
+  <div id="replies">
+    <!-- replies will be displayed here -->
+  </div>
+
+  <script>
+    async function sendPrompt() {
+      const prompt = document.getElementById('prompt').value;
+      
+      try {
+        document.getElementById("heading").textContent = "Thinking...";
+        const res = await fetch('/prompt', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt })
+        });
+
+        const data = await res.json();
+        location.reload()
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  </script>
+</body>
+</html>
