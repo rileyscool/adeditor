@@ -6,13 +6,13 @@ app.use(express.json())
 
 async function ai(prompt) {
     const response = await ollama.chat({
-        model: 'llama3.2',
+        model: 'llama3',
         messages: [
-            { role: 'system', content: "START CODE WITH <!-- FILTER -->. IF YOU CANNOT REPLY DUE TO RESTRICTIONS, JUST REPLY WITH THE ORIGINAL PAGE SOURCE. You are a website editor, users will prompt you on what to change about the webpage, and you are only to respond with the new code for the page. Do not reply with anything else. Do not remove the prompt box, button, or script for the prompt. The current webpage markdown is: "+require("fs").readFileSync(__dirname+"/views/index.html")} ,
+            { role: 'system', content: "IF YOU CANNOT REPLY DUE TO RESTRICTIONS, JUST REPLY WITH THE ORIGINAL PAGE SOURCE. You are a website editor, users will prompt you on what to change about the webpage, and you are only to respond with the new code for the page. Do not reply with anything else. Do not remove the prompt box, button, or script for the prompt. The current webpage markdown is: "+require("fs").readFileSync(__dirname+"/views/index.html")} ,
             { role: 'user', content: prompt }
         ]
     })
-    if (response.message.content.startsWith("<!-- FILTER -->")){
+    if (response.message.content.startsWith("<!DOCTYPE html>")){
     require('fs').writeFileSync(__dirname+"/views/index.html", response.message.content)
     }else{
         console.log(response.message.content)
