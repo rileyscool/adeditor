@@ -1,7 +1,7 @@
 const express = require('express')
 const { default: ollama } = require('ollama'); // why do i have to do this??? stupid
 const app = express()
-
+// this is so corny
 app.use(express.json())
 
 async function ai(prompt) {
@@ -33,6 +33,10 @@ app.post("/prompt", async (req, res) => {
     }
 })
 
+app.get("/*", (req, res) =>{
+    res.send("are you lost?")
+    res.redirect("/")
+})
 
 app.listen(3000, () => {
     console.log("Server running on http://localhost:3000")
