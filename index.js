@@ -36,6 +36,8 @@ app.post("/prompt", async (req, res) => {
 app.get("/*", (req, res) =>{
     res.send("are you lost?")
     res.redirect("/")
+    // cant be assed making a 404 page so
+    // i actually dunno if this works
 })
 
 app.listen(3000, () => {
